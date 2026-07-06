@@ -31,7 +31,6 @@ export class SubmitTicket implements OnInit {
     private ticketService: TicketService,
     private router: Router,
     private cdr: ChangeDetectorRef) {
-      console.log('SubmitTicket component constructed');
   }
 
   ngOnInit() {
@@ -39,17 +38,16 @@ export class SubmitTicket implements OnInit {
   }
 
   loadMyProducts() {
-    console.log('loadMyProducts called');
+   
     this.isLoadingProducts = true;
     this.productService.getMyProducts().subscribe({
       next: (response) => {
-        console.log('Products received:', response);
         this.products = response.data;
         this.isLoadingProducts = false;
         this.cdr.detectChanges();
       },
       error: (err) => {
-        console.log('Error loading products:', err);
+        
         this.errorMessage = 'Failed to load your products';
         this.isLoadingProducts = false;
         this.cdr.detectChanges();
