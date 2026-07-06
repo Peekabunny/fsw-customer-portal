@@ -1,0 +1,14 @@
+<nav class="navbar" *ngIf="isLoggedIn()">
+  <div class="navbar-brand">
+    <span>FSW Customer Portal</span>
+  </div>
+
+  <div class="navbar-links">
+    <a routerLink="/my-tickets">My Tickets</a>
+    <a routerLink="/submit-ticket">Submit a Ticket</a>
+  </div>
+
+  <div class="navbar-actions">
+    <button class="logout-btn" (click)="logout()">Logout</button>
+  </div>
+</nav>

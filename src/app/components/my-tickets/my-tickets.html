@@ -1,0 +1,43 @@
+<div class="tickets-container">
+
+  <div class="page-header">
+    <h1>My Support Tickets</h1>
+    <a routerLink="/submit-ticket" class="btn-primary">+ Submit a Ticket</a>
+  </div>
+
+  @if (isLoading()) {
+    <div class="loading">Loading your tickets...</div>
+  }
+
+  @if (errorMessage()) {
+    <div class="error">{{ errorMessage() }}</div>
+  }
+
+  @if (!isLoading() && tickets().length === 0) {
+    <div class="no-tickets">
+      <p>You haven't submitted any tickets yet.</p>
+      <a routerLink="/submit-ticket" class="btn-primary">Submit your first ticket</a>
+    </div>
+  }
+
+  @if (!isLoading() && tickets().length > 0) {
+    <div class="tickets-list">
+      @for (ticket of tickets(); track ticket.id) {
+        <div class="ticket-card">
+          <div class="ticket-header">
+            <h3 class="ticket-title">{{ ticket.title }}</h3>
+            <span class="status-badge" [class]="getStatusClass(ticket.status)">
+              {{ getStatusLabel(ticket.status) }}
+            </span>
+          </div>
+          <p class="ticket-description">{{ ticket.description }}</p>
+          <div class="ticket-meta">
+            <span>Product: {{ ticket.productName }}</span>
+            <span>Submitted: {{ ticket.createdDate | date:'MMM d, yyyy' }}</span>
+          </div>
+        </div>
+      }
+    </div>
+  }
+
+</div>

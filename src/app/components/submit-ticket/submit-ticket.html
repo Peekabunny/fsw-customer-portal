@@ -1,0 +1,46 @@
+<div class="submit-container">
+  <div class="submit-card">
+
+    <h1>Submit a Support Ticket</h1>
+    <p class="subtitle">Tell us about the issue you're experiencing</p>
+    <p>DEBUG: isLoadingProducts = {{ isLoadingProducts }}, products.length = {{ products.length }}</p>
+    <!-- no products owned yet -->
+    <div class="no-products" *ngIf="!isLoadingProducts && products.length === 0">
+      <p>You don't have any registered products yet. Please contact us if you believe this is an error.</p>
+    </div>
+
+    <div class="loading" *ngIf="isLoadingProducts">Loading your products...</div>
+
+    <form (ngSubmit)="submitTicket()" *ngIf="!isLoadingProducts && products.length > 0">
+
+      <div class="form-group">
+        <label>Which product is this about?</label>
+        <select name="productId" [(ngModel)]="newTicket.productId" required>
+          <option [value]="0" disabled>-- Select a product --</option>
+          <option *ngFor="let product of products" [value]="product.id">
+            {{ product.name }}
+          </option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label>Title</label>
+        <input type="text" name="title" [(ngModel)]="newTicket.title" placeholder="Brief summary of the issue" required />
+      </div>
+
+      <div class="form-group">
+        <label>Description</label>
+        <textarea name="description" [(ngModel)]="newTicket.description" placeholder="Describe what's happening in detail" rows="5" required></textarea>
+      </div>
+
+      <div class="error" *ngIf="errorMessage">{{ errorMessage }}</div>
+      <div class="success" *ngIf="successMessage">{{ successMessage }}</div>
+
+      <button type="submit" class="submit-btn" [disabled]="isSubmitting">
+        {{ isSubmitting ? 'Submitting...' : 'Submit Ticket' }}
+      </button>
+
+    </form>
+
+  </div>
+</div>
